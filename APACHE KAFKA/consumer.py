@@ -2,8 +2,8 @@ from confluent_kafka import Consumer, KafkaError
 import json
 
 conf = {
-    'bootstrap.servers': 'localhost:9092',
-    'group.id': 'telemetry-processors',
+    'bootstrap.servers': 'localhost:9092,localhost:9093,localhost:9094',
+    'group.id': 'telemetry-processors-2',
     'auto.offset.reset': 'earliest',
     'enable.auto.commit': False
 }

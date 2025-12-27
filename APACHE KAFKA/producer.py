@@ -1,15 +1,17 @@
+import random
+
 from confluent_kafka import Producer
 import json
 import time
 
 # Configuration
 conf = {
-    'bootstrap.servers': 'localhost:9092',
+    'bootstrap.servers': '127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094',
     'client.id': 'test-producer',
     'acks': 'all',
     'retries': 3,
     'linger.ms': 100,
-    'compression.type': 'snappy'
+    'compression.type': 'snappy',
 }
 
 producer = Producer(conf)
@@ -26,13 +28,11 @@ def delivery_callback(err, msg):
 # Send messages
 topic = 'vessel-telemetry'
 
-for i in range(100):
+while True:
     message = {
-        'latitude': 53.5511,
-        'longitude': 9.9937
+        'random_int': random.randint(0, 100),
     }
 
-    # Produce message (non-blocking)
     producer.produce(
         topic=topic,
         value=json.dumps(message).encode('utf-8'),
@@ -42,7 +42,6 @@ for i in range(100):
     # Trigger callbacks
     producer.poll(0)
 
-    time.sleep(1)
+    time.sleep(0.1)
 
-# Wait for all messages to be delivered
 producer.flush()
