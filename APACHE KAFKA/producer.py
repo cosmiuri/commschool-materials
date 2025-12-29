@@ -6,7 +6,7 @@ import time
 
 # Configuration
 conf = {
-    'bootstrap.servers': '127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094',
+    'bootstrap.servers': '127.0.0.1:9092,127.0.0.1:19092,127.0.0.1:29092',
     'client.id': 'test-producer',
     'acks': 'all',
     'retries': 3,
