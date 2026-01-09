@@ -121,16 +121,16 @@ bin/nifi.sh restart
 
 ---
 
-## 8. Notes for Single-Node Usage
+## 8. Needed for PG\
+```
+jdbc:postgresql://localhost:5432/mydb
+cd /opt/nifi/lib
+wget https://jdbc.postgresql.org/download/postgresql-42.7.4.jar
+chmod 644 postgresql-42.7.4.jar
+```
 
-- No ZooKeeper or NiFi Registry required
-- Local state management is sufficient
-- Ideal for development, testing, and file-based ingestion pipelines
-
----
-
-## References
-
-- https://nifi.apache.org/
-- https://nifi.apache.org/docs/nifi-docs/
-
+```
+jdbc:postgresql://localhost:5432/postgres
+org.postgresql.Driver
+/opt/nifi/lib/postgresql-42.7.4.jar
+```
