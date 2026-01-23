@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.providers.postgres.sensors.postgres import PostgresTableSensor
+from airflow.providers.common.sql.sensors.sql import SqlSensor
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 
@@ -9,19 +9,19 @@ def do_something():
 
 
 with DAG(
-        dag_id="example_postgres_table_sensor",
+        dag_id="example_postgres_table_sqlsensor",
         start_date=datetime(2025, 1, 1),
         schedule="@hourly",
         catchup=False,
-        tags=["sensor", "postgres"],
+        tags=["sensor", "postgres", "sqlsensor"],
 ) as dag:
-    wait_for_data = PostgresTableSensor(
+    wait_for_data = SqlSensor(
         task_id="wait_for_data_in_table",
-        postgres_conn_id="postgres_default",  # must exist in Airflow Connections
-        table="public.orders",  # waits until table is NOT empty
-        poke_interval=30,  # check every 30 seconds
-        timeout=10 * 60,  # fail after 10 minutes
-        mode="poke",  # most simple mode
+        conn_id="postgres_default",  # Airflow Connection ID
+        sql="SELECT 1 FROM public.variable LIMIT 1;",  # sensor succeeds if query returns rows
+        poke_interval=30,
+        timeout=10 * 60,
+        mode="poke",  # or "reschedule" (recommended for long waits)
     )
 
     process = PythonOperator(

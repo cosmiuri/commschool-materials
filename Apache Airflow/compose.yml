@@ -12,7 +12,9 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    AIRFLOW__CORE__TEST_CONNECTION: 'Enabled'
   #    _PIP_ADDITIONAL_REQUIREMENTS: "clickhouse-driver confluent-kafka pytz avro fastavro"
+    _PIP_ADDITIONAL_REQUIREMENTS: "apache-airflow-providers-postgres"
 
     AIRFLOW_CONFIG: /opt/airflow/config/airflow.cfg
 
