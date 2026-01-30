@@ -9,7 +9,6 @@ logger = logging.getLogger("airflow.task")
 def process_step(step):
     logger.info(f"Running step {step}")
 
-
 steps = [1, 2, 3, 4]
 
 with DAG(
@@ -19,6 +18,7 @@ with DAG(
         catchup=False,
         tags=["dynamic", "sequential"],
 ) as dag:
+
     previous_task = None
 
     for step in steps:
